@@ -7,7 +7,13 @@
 你好，我是[燕云长风](https://yanyunchangfeng.github.io)。大漠穷秋于 2019-03-16 21:22 赠此笔名。  
 寓意：结合李白著名的边塞诗《关山月》取【燕云长风】—— 长风几万里，吹度玉门关。
 
-##
+## 安装和使用 
+```
+   yarn or npm install 
+
+   yarn start or npm start
+```
+这是基于webpack5 的配置模版 可快速搭建项目  配合[cf-cli](https://github.com/yanyunchangfeng/cf-cli) 使用更佳
 
 ## 我的个人博客
 
