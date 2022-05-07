@@ -53,7 +53,7 @@ module.exports = {
     },
     resolve: {
         modules: [path.resolve('node_modules')],// 解析第三方包
-        extensions: ['.js', '.ts', '.css', '.less', '.scss', '.json'],// 文件后缀名 先后顺序查找
+        extensions: ['.js', '.ts', '.tsx', '.css', '.less', '.scss', '.json'],// 文件后缀名 先后顺序查找
         // mainFields: ['style', 'main'],// eg: bootstrap 先找package.json 的style字段 没有的话再找main字段
         // mainFiles:['index.js','index.ts'],// 入口文件的名字 默认是index.js 
         alias: { // 别名  注意tsconfig.json˙中的paths也要对应配置
@@ -131,10 +131,10 @@ module.exports = {
         // noParse: /lodash/, //正则表达式
         // module.noParse字段，可以用于配置哪些模块文件的内容不需要进行解析
         // 不需要解析依赖(如无依赖)的第三方大型库等，可以通过这个字段来配置，以提高整体的构建速度
-        noParse(content) {
-            // console.log(content,'content')
-            return /lodash/.test(content)
-        }
+        // noParse(content) {
+        //     // console.log(content,'content')
+        //     return /lodash/.test(content)
+        // }
     },
     stats: 'errors-only',// 只在错误时输出
     plugins: [
