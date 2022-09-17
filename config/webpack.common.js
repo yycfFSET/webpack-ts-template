@@ -7,11 +7,11 @@ const SpeedMeasureWebpackPlugin = require("speed-measure-webpack-plugin");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const smw = new SpeedMeasureWebpackPlugin();
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
-const os = require("os");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
+const webpackBar = require("webpackbar");
 const isDev = process.env.NODE_ENV === "development";
 isAnalyzerMode = process.env.ANALYZE === "1";
 const noop = () => {};
@@ -115,22 +115,8 @@ module.exports = {
     // 用于配置模块加载规则，例如针对什么类型的资源需要使用哪些Loader进行处理
     rules: [
       {
-        test: /\.html$/i,
-        use: [
-          {
-            loader: "html-loader",
-          },
-        ],
-      },
-      {
         test: /\.tsx?$/,
         use: [
-          {
-            loader: "thread-loader",
-            options: {
-              workers: os.cpus().length - 1,
-            },
-          },
           {
             loader: "ts-loader",
             options: {
@@ -226,6 +212,7 @@ module.exports = {
     : false,
   stats: "errors-only", // 只在错误时输出  用于精确地控制编译过程的日志内容，在做比较细致的性能调式时非常有用
   plugins: [
+    new webpackBar(),
     // fork 出子进程，专门用于执行类型检查 这样，既可以获得 Typescript 静态类型检查能力，又能提升整体编译速度。
     new ForkTsCheckerWebpackPlugin(),
     isAnalyzerMode
@@ -274,7 +261,7 @@ module.exports = {
     // 第二个是匹配模块的对应上下文，即所在目录名
     !isDev
       ? new UnusedWebpackPlugin({
-          directories: [path.join(process.cwd(), "src", "app")], //用于指定需要分析的文件目录
+          directories: [path.join(process.cwd(), "src")], //用于指定需要分析的文件目录
           root: __dirname, // 用于显示相对路径替代原有的绝对路径。
         })
       : noop,
