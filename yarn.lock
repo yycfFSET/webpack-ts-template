@@ -2178,7 +2178,7 @@ html-entities@^2.3.2:
   resolved "https://registry.npmmirror.com/html-entities/-/html-entities-2.3.3.tgz#117d7626bece327fc8baace8868fa6f5ef856e46"
   integrity sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==
 
-html-loader@^4.1.0:
+html-loader@4.1.0:
   version "4.1.0"
   resolved "https://registry.npmmirror.com/html-loader/-/html-loader-4.1.0.tgz#a2f935802675fef0703165491316b200600996be"
   integrity sha512-QDDNmLgn96NWtTPx/VXRerFXH0hn7cm4bruqsZ333GCb+rqiqGurcxtP/M52wcui1/iLiu0l5ms/McE7/Ik6aQ==
