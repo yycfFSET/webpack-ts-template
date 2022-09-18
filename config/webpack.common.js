@@ -12,8 +12,10 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const webpackBar = require("webpackbar");
-const isDev = process.env.NODE_ENV === "development";
-isAnalyzerMode = process.env.ANALYZE === "1";
+const { NODE_ENV, ANALYZE, UNUSED } = process.env;
+const isDev = NODE_ENV === "development";
+isAnalyzerMode = ANALYZE === "1";
+isUnusedMode = UNUSED === "1";
 const noop = () => {};
 // module.exports = smw.wrap({ //需要包裹一层配置对象
 module.exports = {
@@ -21,8 +23,8 @@ module.exports = {
   mode: process.env.NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
   entry: {
     // 用于定义项目入口文件，Webpack会从这些入口文件开始按图索骥找出所有项目文件；
-    main: "./src/app/index.ts", // 可以配置多个
-    modal: "./src/app/modal.ts", // 多页应用入口
+    main: "./src/index.ts", // 可以配置多个
+    modal: "./src/modal.ts", // 多页应用入口
   },
   devtool: isDev ? "source-map" : false, //用于配置产物 Sourcemap 生成规则
   output: {
@@ -53,6 +55,7 @@ module.exports = {
             vendors: {
               chunks: "all",
               test: /node_modules/, //条件
+              reuseExistingChunk: true,
               priority: -10, //优先级，一个chunk很可能满足多个缓存组，会被抽取到优先级高的缓存组中，为了能够让自定义缓存组有更高的优先级
             },
             commons: {
@@ -114,6 +117,14 @@ module.exports = {
   module: {
     // 用于配置模块加载规则，例如针对什么类型的资源需要使用哪些Loader进行处理
     rules: [
+      {
+        test: /\.html$/i,
+        use: [
+          {
+            loader: "html-loader",
+          },
+        ],
+      },
       {
         test: /\.tsx?$/,
         use: [
@@ -222,13 +233,13 @@ module.exports = {
         })
       : noop,
     new htmlWebpackPlugin({
-      template: path.join(process.cwd(), "src/index.temp.html"),
+      template: path.join(process.cwd(), "src/index.html"),
       filename: "index.html",
       chunks: ["main"], // 指定包含的代码块
       favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
     }),
     new htmlWebpackPlugin({
-      template: path.join(process.cwd(), "src/index.temp.html"),
+      template: path.join(process.cwd(), "src/index.html"),
       filename: "modal.html",
       chunks: ["modal"],
       favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
@@ -259,7 +270,7 @@ module.exports = {
     // IgnorePlugin用于忽略某些特定的模块，让webpack不把这些指定的模块打包进去
     // 第一个是匹配引入模块路径的正则表达式
     // 第二个是匹配模块的对应上下文，即所在目录名
-    !isDev
+    !isUnusedMode
       ? new UnusedWebpackPlugin({
           directories: [path.join(process.cwd(), "src")], //用于指定需要分析的文件目录
           root: __dirname, // 用于显示相对路径替代原有的绝对路径。
@@ -275,8 +286,8 @@ module.exports = {
   ],
   infrastructureLogging: {
     // 用于控制日志输出方式，例如可以通过该配置将日志输出到磁盘文件
-    appendOnly: true,
-    level: "verbose",
+    // appendOnly: true,
+    // level: "verbose",
   },
   externals: {
     //用于声明外部资源，Webpack 会直接忽略这部分资源，跳过这些资源的解析、打包操作

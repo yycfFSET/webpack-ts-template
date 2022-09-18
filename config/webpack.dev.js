@@ -11,7 +11,6 @@ module.exports = merge(commonConfig, {
     //Webpack 5 之后，该项用于控制如何缓存编译过程信息与编译结果
     // 不要使用cnpm 来安装模块 会有问题
     type: "memory", // memory filesystem,  // 默认是在内存中存储
-    // cacheDirectory:path.resolve(__dirname,'../node_modules/.cache/webpack') // 默认缓存目录
   },
   devServer: {
     // 用于配置与 HMR 强相关的开发服务器功能
