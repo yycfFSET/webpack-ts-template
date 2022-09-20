@@ -228,7 +228,7 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     isAnalyzerMode
       ? new BundleAnalyzerPlugin({
-          analyzerMode: "disabled", // 不启动展示打包报告的http服务器
+          analyzerMode: "server", // 启动展示打包报告的http服务器
           generateStatsFile: true, // 是否生成stats.json文件
         })
       : noop,

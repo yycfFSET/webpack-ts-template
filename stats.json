@@ -1,0 +1,5 @@
+ℹ Compiling Webpack
+✔ Webpack: Compiled successfully in 1.57s
+ DONE  Compiled successfully in 1577ms上午9:40:12
+
+{"logging":{"webpack.Compiler":{"entries":[],"filteredEntries":9,"debug":false},"webpack.Compilation.ModuleProfile":{"entries":[],"filteredEntries":3,"debug":false},"webpack.Compilation":{"entries":[],"filteredEntries":29,"debug":false},"webpack.ResolverCachePlugin":{"entries":[],"filteredEntries":1,"debug":false},"webpack.FlagDependencyExportsPlugin":{"entries":[],"filteredEntries":4,"debug":false},"webpack.SideEffectsFlagPlugin":{"entries":[],"filteredEntries":1,"debug":false},"webpack.FlagDependencyUsagePlugin":{"entries":[],"filteredEntries":2,"debug":false},"webpack.buildChunkGraph":{"entries":[],"filteredEntries":9,"debug":false},"webpack.SplitChunksPlugin":{"entries":[],"filteredEntries":4,"debug":false},"webpack.ModuleConcatenationPlugin":{"entries":[],"filteredEntries":8,"debug":false},"copy-webpack-plugin":{"entries":[],"filteredEntries":38,"debug":false},"webpack.FileSystemInfo":{"entries":[],"filteredEntries":12,"debug":false},"webpack.CleanPlugin":{"entries":[],"filteredEntries":1,"debug":false}},"errors":[],"errorsCount":0}
