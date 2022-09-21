@@ -96,8 +96,8 @@ module.exports = {
     // 用于配置模块路径解析规则，可用于帮助Webpack更精确、高效地找到指定模块
     modules: [path.resolve("node_modules")], // 解析第三方包
     extensions: [".js", ".ts", ".tsx", ".css", ".less", ".scss", ".json"], // 文件后缀名 先后顺序查找
-    // mainFields: ['style', 'main'],// eg: bootstrap 先找package.json 的style字段 没有的话再找main字段
-    // mainFiles:['index.js','index.ts'],// 入口文件的名字 默认是index.js
+    mainFields: ["browser", "module", "main", "style"], // eg: bootstrap 先找package.json 的style字段 没有的话再找main字段
+    mainFiles: ["index"], // 入口文件的名字 默认是index
     alias: {
       // 别名  注意tsconfig.json˙中的paths也要对应配置
       src: path.resolve(__dirname, "../src"),
@@ -112,7 +112,7 @@ module.exports = {
   experiments: {
     topLevelAwait: true, // 此处为新增配置
     asyncWebAssembly: true,
-    // lazyCompilation: isDev ? true : false, // 按需编译
+    lazyCompilation: isDev ? true : false, // 按需编译
   },
   module: {
     // 用于配置模块加载规则，例如针对什么类型的资源需要使用哪些Loader进行处理
