@@ -95,12 +95,12 @@ module.exports = {
   resolve: {
     // 用于配置模块路径解析规则，可用于帮助Webpack更精确、高效地找到指定模块
     modules: [path.resolve("node_modules")], // 解析第三方包
-    extensions: [".js", ".ts", ".tsx", ".css", ".less", ".scss", ".json"], // 文件后缀名 先后顺序查找
+    extensions: [".ts", ".tsx", ".js", ".css", ".less", ".scss", ".json"], // 文件后缀名 先后顺序查找
     mainFields: ["browser", "module", "main", "style"], // eg: bootstrap 先找package.json 的style字段 没有的话再找main字段
     mainFiles: ["index"], // 入口文件的名字 默认是index
     alias: {
       // 别名  注意tsconfig.json˙中的paths也要对应配置
-      src: path.resolve(__dirname, "../src"),
+      src: path.resolve("src"),
     },
   },
   resolveLoader: {
@@ -110,7 +110,7 @@ module.exports = {
     mainFields: ["loader", "main"],
   },
   experiments: {
-    topLevelAwait: true, // 此处为新增配置
+    topLevelAwait: true,
     asyncWebAssembly: true,
     lazyCompilation: isDev ? true : false, // 按需编译
   },
@@ -203,7 +203,6 @@ module.exports = {
     // module.noParse字段，可以用于配置哪些模块文件的内容不需要进行解析
     // 不需要解析依赖(如无依赖)的第三方大型库等，可以通过这个字段来配置，以提高整体的构建速度
     noParse(content) {
-      // console.log(content,'content')
       return /lodash/.test(content);
     },
   },
@@ -225,7 +224,14 @@ module.exports = {
   plugins: [
     new webpackBar(),
     // fork 出子进程，专门用于执行类型检查 这样，既可以获得 Typescript 静态类型检查能力，又能提升整体编译速度。
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+      },
+    }),
     isAnalyzerMode
       ? new BundleAnalyzerPlugin({
           analyzerMode: "server", // 启动展示打包报告的http服务器
@@ -293,3 +299,4 @@ module.exports = {
     //用于声明外部资源，Webpack 会直接忽略这部分资源，跳过这些资源的解析、打包操作
   },
 };
+// });

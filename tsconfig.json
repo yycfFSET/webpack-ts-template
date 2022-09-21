@@ -5,7 +5,7 @@
         "esModuleInterop": true,
         "allowJs": true,
         "module": "esnext",
-        "strict": false,
+        "strict": true,
         "lib": [
             "esnext",
             "dom"
@@ -13,22 +13,22 @@
         "target": "es2020",
         "sourceMap": true,
         "jsx": "react",
-        "typeRoots": [
-            "./node_modules/@types",
-            "./src/@types"
-        ],
-        "baseUrl": ".",
+        "baseUrl": "./",
         "paths": {
             "src/*": [
-                "./src/*"
+                "src/*" // alias让webpack识别 paths让ts识别
+            ],
+            "*":[
+                "src/types/*"
             ]
         },
         // "preserveConstEnums": true, // 编译结果保留const定义的常量枚举 默认关闭
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "incremental": true
+        "incremental": true // 启动增量编译
     },
     "include": [
-        "./src/**/*.ts"
+        "src/**/*", // 两个*表示任意目录 一个*表示任意文件
+        "src/typings/**/*" 
     ]
 }
