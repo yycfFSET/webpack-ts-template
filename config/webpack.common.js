@@ -24,7 +24,7 @@ module.exports = {
   entry: {
     // 用于定义项目入口文件，Webpack会从这些入口文件开始按图索骥找出所有项目文件；
     main: "./src/index.ts", // 可以配置多个
-    modal: "./src/modal.ts", // 多页应用入口
+    // modal: "./src/modal.ts", // 多页应用入口
   },
   devtool: isDev ? "source-map" : false, //用于配置产物 Sourcemap 生成规则
   output: {
@@ -244,12 +244,12 @@ module.exports = {
       chunks: ["main"], // 指定包含的代码块
       favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
     }),
-    new htmlWebpackPlugin({
-      template: path.join(process.cwd(), "src/index.html"),
-      filename: "modal.html",
-      chunks: ["modal"],
-      favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
-    }),
+    // new htmlWebpackPlugin({
+    //   template: path.join(process.cwd(), "src/index.html"),
+    //   filename: "modal.html",
+    //   chunks: ["modal"],
+    //   favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
+    // }),
     new webpack.DefinePlugin({
       AUTHOR: JSON.stringify("yanyunchangfeng"),
     }),
