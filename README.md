@@ -15,6 +15,11 @@
 
 这是基于webpack5 的配置模版 可快速搭建项目  配合[cf-cli](https://github.com/yanyunchangfeng/cf-cli) 使用更佳
 
+## 打包分析
+
+```
+   yarn build-analyzer or npm run build-analyzer  
+```
 ## 系列项目
 
 |  名称   | 描述  |
