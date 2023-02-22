@@ -101,7 +101,7 @@ module.exports = {
     // 用于配置模块路径解析规则，可用于帮助Webpack更精确、高效地找到指定模块
     modules: [path.resolve("node_modules")], // 解析第三方包
     extensions: [".ts", ".tsx", ".js", ".css", ".less", ".scss", ".json"], // 文件后缀名 先后顺序查找
-    mainFields: ["browser", "module", "main", "style"], // eg: bootstrap 先找package.json 的style字段 没有的话再找main字段
+    mainFields: ["jsnext:main", "browser", "module", "main", "style"], // 优先使用 jsnext:main 中指向的 ES6 模块化语法的文件
     mainFiles: ["index"], // 入口文件的名字 默认是index
     alias: {
       // 别名  注意tsconfig.json˙中的paths也要对应配置
@@ -204,12 +204,6 @@ module.exports = {
         ],
       },
     ],
-    // noParse: /lodash/, //正则表达式
-    // module.noParse字段，可以用于配置哪些模块文件的内容不需要进行解析
-    // 不需要解析依赖(如无依赖)的第三方大型库等，可以通过这个字段来配置，以提高整体的构建速度
-    noParse(content) {
-      return /lodash/.test(content);
-    },
   },
   performance: !isDev //监控产物体积
     ? {
