@@ -12,11 +12,12 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const webpackBar = require("webpackbar");
-const { NODE_ENV, ANALYZE, UNUSED, MULTIPLE } = process.env;
+const { NODE_ENV, ANALYZE, UNUSED, MULTIPLE, UMD_LIBRARY } = process.env;
 const isDev = NODE_ENV === "development";
 isAnalyzerMode = ANALYZE === "1";
 isUnusedMode = UNUSED === "1";
 isMultiplePage = MULTIPLE === "1";
+
 const noop = () => {};
 // module.exports = smw.wrap({ //需要包裹一层配置对象
 module.exports = {
@@ -32,13 +33,21 @@ module.exports = {
         main: "./src/index.ts",
       },
   devtool: isDev ? "source-map" : false, //用于配置产物 Sourcemap 生成规则
-  output: {
-    // 配置产物输出路径、名称等；
-    path: path.join(process.cwd(), "docs"),
-    filename: "[name].[contenthash].js", //入口代码块文件名的生成规则
-    chunkFilename: "[name].[contenthash].js", //非入口模块的生成规则
-    clean: true,
-  },
+  output: !UMD_LIBRARY
+    ? {
+        // 配置产物输出路径、名称等；
+        path: path.join(process.cwd(), "docs"),
+        filename: "[name].[contenthash].js", //入口代码块文件名的生成规则
+        chunkFilename: "[name].[contenthash].js", //非入口模块的生成规则
+        clean: true,
+      }
+    : {
+        path: path.join(process.cwd(), "dist/umd"),
+        filename: "index.js",
+        clean: true,
+        library: UMD_LIBRARY,
+        libraryTarget: "umd",
+      },
   optimization: {
     // 用于控制如何优化产物包体积，内置DeadCodeElimination、ScopeHoisting、代码混淆、代码压缩等功能
     // moduleIds: 'natural', named  deterministic size // 模块名称的生成规则 deterministic 生产模式默认值
@@ -147,31 +156,31 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         type: "asset/resource",
-        use: [
-          {
-            loader: "image-webpack-loader",
-            options: {
-              // jpeg 压缩配置
-              mozjpeg: {
-                quality: 80,
-              },
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.9],
-                speed: 4,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              webp: {
-                quality: 75,
-              },
-              disable: isDev ? true : false,
-            },
-          },
-        ],
+        // use: [
+        //   {
+        //     loader: "image-webpack-loader",
+        //     options: {
+        //       // jpeg 压缩配置
+        //       mozjpeg: {
+        //         quality: 80,
+        //       },
+        //       optipng: {
+        //         enabled: false,
+        //       },
+        //       pngquant: {
+        //         quality: [0.65, 0.9],
+        //         speed: 4,
+        //       },
+        //       gifsicle: {
+        //         interlaced: false,
+        //       },
+        //       webp: {
+        //         quality: 75,
+        //       },
+        //       disable: isDev ? true : false,
+        //     },
+        //   },
+        // ],// 如需优化压缩图片资源请安装此loader
         // 资源模块 对标file-loader
       },
       {
@@ -237,12 +246,17 @@ module.exports = {
           generateStatsFile: true, // 是否生成stats.json文件
         })
       : noop,
-    new htmlWebpackPlugin({
-      template: path.join(process.cwd(), "src/index.html"),
-      filename: "index.html",
-      chunks: ["main"], // 指定包含的代码块
-      favicon: path.join(process.cwd(), "src/assets/img/yanyunchangfeng.png"),
-    }),
+    !UMD_LIBRARY
+      ? new htmlWebpackPlugin({
+          template: path.join(process.cwd(), "src/index.html"),
+          filename: "index.html",
+          chunks: ["main"], // 指定包含的代码块
+          favicon: path.join(
+            process.cwd(),
+            "src/assets/img/yanyunchangfeng.png"
+          ),
+        })
+      : noop,
     isMultiplePage
       ? new htmlWebpackPlugin({
           template: path.join(process.cwd(), "src/index.html"),
@@ -261,17 +275,19 @@ module.exports = {
     // .日志太多太少都不美观
     // .可以修改stats
     !isDev
-      ? new CopyPlugin({
-          patterns: [
-            {
-              from: path.resolve(process.cwd(), "src", "assets"),
-              to: path.resolve(process.cwd(), "docs"),
+      ? !UMD_LIBRARY
+        ? new CopyPlugin({
+            patterns: [
+              {
+                from: path.resolve(process.cwd(), "src", "assets"),
+                to: path.resolve(process.cwd(), "docs"),
+              },
+            ],
+            options: {
+              concurrency: 100,
             },
-          ],
-          options: {
-            concurrency: 100,
-          },
-        })
+          })
+        : noop
       : noop,
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$/,
