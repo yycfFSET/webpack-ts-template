@@ -38,9 +38,7 @@
 ```               
 ## 社交主页
 
-* [燕云长风知乎](https://zhihu.com/people/hbxyxuxiaodong)
-* [燕云长风 github](https://github.com/yanyunchangfeng)
-* [燕云长风 gitee](https://gitee.com/yanyunchangfeng)
+* [燕云长风github](https://github.com/yanyunchangfeng)
 
 ## 开源许可证
 
