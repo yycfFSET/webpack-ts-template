@@ -23,7 +23,9 @@
     "build:umd": "cross-env NODE_ENV=production UMD_LIBRARY=MyLibrary webpack build",
     "build:esm": "tsc -p tsconfig.build.json -m es6 --outDir dist/esm",
     "build:cjs": "tsc -p tsconfig.build.json -m commonjs --outDir dist/cjs",
-    "build-umd-esm-cjs": "npm run test && npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs"
+    "build-umd-esm-cjs": "npm run test && npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "cross-env": "7.0.3",
     "css-loader": "6.7.1",
     "css-minimizer-webpack-plugin": "4.1.0",
+    "cypress": "^12.14.0",
     "fork-ts-checker-webpack-plugin": "7.2.13",
     "friendly-errors-webpack-plugin": "1.7.0",
     "html-loader": "4.1.0",
@@ -62,6 +65,5 @@
     "webpack-dev-server": "4.8.0",
     "webpack-merge": "5.8.0",
     "webpackbar": "5.0.2"
-  },
-  "dependencies": {}
+  }
 }
