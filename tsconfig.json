@@ -15,7 +15,7 @@
       "src/*": [
         "src/*" // alias让webpack识别 paths让ts识别
       ],
-      "*": ["src/types/*"] // 当我们引入文件的时候默认会去types下找声明文件 不是d.ts的文件是ts文件s
+      "*": ["src/types/*"] // 当我们引入文件的时候默认会去types下找声明文件 不是d.ts的文件是ts文件
     },
     // "preserveConstEnums": true, // 编译结果保留const定义的常量枚举 默认关闭
     "experimentalDecorators": true,
