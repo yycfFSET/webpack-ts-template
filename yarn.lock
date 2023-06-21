@@ -2076,7 +2076,7 @@ csso@^4.2.0:
   dependencies:
     css-tree "^1.1.2"
 
-cypress@^12.14.0:
+cypress@12.14.0:
   version "12.14.0"
   resolved "https://registry.npmjs.org/cypress/-/cypress-12.14.0.tgz#37a19b85f5e9d881995e9fee1ddf41b3d3a623dd"
   integrity sha512-HiLIXKXZaIT1RT7sw1sVPt+qKtis3uYNm6KwC4qoYjabwLKaqZlyS/P+uVvvlBNcHIwL/BC6nQZajpbUd7hOgQ==

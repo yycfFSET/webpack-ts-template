@@ -4,7 +4,7 @@
 
 ## 介绍
 
-你好，我是[燕云长风](https://yanyunchangfeng.github.io)。
+你好，我是[燕云长风](https://yanyunchangfeng.github.io)。  
 寓意：结合李白著名的边塞诗《关山月》取【燕云长风】—— 长风几万里，吹度玉门关。
 
 ## 用法
@@ -13,7 +13,7 @@
    yarn start or npm start
 ```
 
-这是基于webpack5 的配置模版 可快速搭建项目  配合[cf-cli](https://github.com/yanyunchangfeng/cf-cli) 使用更佳
+这是基于webpack5,typescript的配置模版 可快速搭建ts项目  配合[cf-cli](https://github.com/yanyunchangfeng/cf-cli) 使用更佳
 
 ## 系列项目
 

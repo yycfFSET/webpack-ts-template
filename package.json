@@ -1,7 +1,7 @@
 {
-  "name": "webpack-config-template",
+  "name": "webpack-ts-template",
   "version": "1.0.0",
-  "description": "this is webpack5 config template",
+  "description": "this is webpack5 typescript template",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -41,7 +41,7 @@
     "cross-env": "7.0.3",
     "css-loader": "6.7.1",
     "css-minimizer-webpack-plugin": "4.1.0",
-    "cypress": "^12.14.0",
+    "cypress": "12.14.0",
     "fork-ts-checker-webpack-plugin": "7.2.13",
     "friendly-errors-webpack-plugin": "1.7.0",
     "html-loader": "4.1.0",
