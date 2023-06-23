@@ -36,6 +36,7 @@
 ```
    yarn cypress:open or  npm run cypress:open
    yarn cypress:run or  npm run cypress:run
+   yarn cypress:run-report or  npm run cypress:run-report 生成自定义的测试报告
 ```               
 ## 打包分析
 
