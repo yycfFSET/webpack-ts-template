@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "jsx": "react",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
   "include": ["src"]
