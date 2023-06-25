@@ -2,13 +2,12 @@ const myBeverage = {
   delicious: true,
   sour: false,
 };
-
-describe("my beverage", () => {
+describe.each([myBeverage])(`test %o correctly`, (item) => {
   test("is delicious", () => {
-    expect(myBeverage.delicious).toBeTruthy();
+    expect(item.delicious).toBeTruthy();
   });
 
   test("is not sour", () => {
-    expect(myBeverage.sour).toBeFalsy();
+    expect(item.sour).toBeFalsy();
   });
 });
