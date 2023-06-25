@@ -25,7 +25,7 @@
     "build:cjs": "tsc -p tsconfig.build.json -m commonjs --outDir dist/cjs",
     "build-umd-esm-cjs": "npm run test && npm run cypress:run && npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs",
     "cypress:open": "cypress open",
-    "cypress:run": "concurrently  --kill-others --kill-others-on-fail  \" npm start\" \" wait-on http://localhost:8080 && cypress run\" ",
+    "cypress:run": "concurrently  --kill-others  --success=first \" npm start\" \" wait-on http://localhost:8080 && cypress run\" ",
     "cypress:run-report": "cypress run --reporter mochawesome",
     "prepare": "husky install",
     "pre-commit": "cross-env CI=true npm test && npm run cypress:run"
