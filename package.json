@@ -4,6 +4,21 @@
   "description": "this is webpack5 typescript template",
   "main": "index.js",
   "types": "index.d.ts",
+  "typesVersions": {
+    ">=4.2": {
+      "*": [
+        "dist/types/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
   "scripts": {
     "test": "jest",
     "start": "cross-env NODE_ENV=development webpack serve",
@@ -19,21 +34,25 @@
     "analyzer": "webpack-bundle-analyzer --port 8888 ./docs/stats.json",
     "clean": "rimraf ./dist",
     "build-css": "sass ./src/index.scss ./dist/index.css",
-    "prepublishOnly": "npm run build-umd-esm-cjs",
+    "prepublishOnly": "npm run pre-commit && npm run build-umd-esm-cjs",
     "build:umd": "cross-env NODE_ENV=production UMD_LIBRARY=MyLibrary webpack build",
     "build:esm": "tsc -p tsconfig.build.json -m es6 --outDir dist/esm",
     "build:cjs": "tsc -p tsconfig.build.json -m commonjs --outDir dist/cjs",
-    "build-umd-esm-cjs": "npm run test && npm run cypress:run && npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs",
+    "build-umd-esm-cjs": "npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs",
     "cypress:open": "cypress open",
     "cypress:run": "concurrently  --kill-others  --success=first \" npm start\" \" wait-on http://localhost:8080 && cypress run\" ",
     "cypress:run-report": "cypress run --reporter mochawesome",
     "prepare": "husky install",
     "pre-commit": "cross-env CI=true npm test && npm run cypress:run"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/yanyunchangfeng/webpack-config-template.git"
   },
+  "keywords": [],
   "author": "yanyunchangfeng <yanyunchangfeng@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -73,5 +92,8 @@
     "webpack-dev-server": "4.8.0",
     "webpack-merge": "5.8.0",
     "webpackbar": "5.0.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }
