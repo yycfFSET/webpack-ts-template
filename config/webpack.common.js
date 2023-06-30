@@ -15,23 +15,16 @@ const webpackBar = require("webpackbar");
 const { NODE_ENV, ANALYZE, UNUSED, MULTIPLE, UMD_LIBRARY } = process.env;
 const isDev = NODE_ENV === "development",
   isAnalyzerMode = ANALYZE === "1",
-  isUnusedMode = UNUSED === "1",
-  isMultiplePage = MULTIPLE === "1";
+  isUnusedMode = UNUSED === "1";
 
 const noop = () => {};
 // module.exports = smw.wrap({ //需要包裹一层配置对象
 module.exports = {
   context: process.cwd(), // 项目执行上下文路径；
   mode: process.env.NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
-  entry: isMultiplePage
-    ? {
-        // 用于定义项目入口文件，Webpack会从这些入口文件开始按图索骥找出所有项目文件；
-        main: "./src/index.ts", // 可以配置多个
-        modal: "./src/modal.ts", // 多页应用入口
-      }
-    : {
-        main: "./src/index.ts",
-      },
+  entry: {
+    main: "./src/index.ts",
+  },
   devtool: isDev ? "source-map" : false, //用于配置产物 Sourcemap 生成规则
   output: !UMD_LIBRARY
     ? {
@@ -251,17 +244,6 @@ module.exports = {
           template: path.join(process.cwd(), "src/index.html"),
           filename: "index.html",
           chunks: ["main"], // 指定包含的代码块
-          favicon: path.join(
-            process.cwd(),
-            "src/assets/img/yanyunchangfeng.png"
-          ),
-        })
-      : noop,
-    isMultiplePage
-      ? new htmlWebpackPlugin({
-          template: path.join(process.cwd(), "src/index.html"),
-          filename: "modal.html",
-          chunks: ["modal"],
           favicon: path.join(
             process.cwd(),
             "src/assets/img/yanyunchangfeng.png"
