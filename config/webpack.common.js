@@ -281,7 +281,7 @@ module.exports = {
     isUnusedMode
       ? new UnusedWebpackPlugin({
           directories: [path.join(process.cwd(), "src")], //用于指定需要分析的文件目录
-          root: __dirname, // 用于显示相对路径替代原有的绝对路径。
+          root: path.join(process.cwd(), "src"), // 用于显示相对路径替代原有的绝对路径。
         })
       : noop,
     !isDev
