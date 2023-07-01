@@ -10,6 +10,5 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
-  "exclude": ["src/types/*"]
+  "include": ["src"]
 }

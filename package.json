@@ -61,7 +61,6 @@
     "css-minimizer-webpack-plugin": "4.1.0",
     "cypress": "12.14.0",
     "fork-ts-checker-webpack-plugin": "7.2.13",
-    "friendly-errors-webpack-plugin": "1.7.0",
     "html-loader": "4.1.0",
     "html-minimizer-webpack-plugin": "4.1.0",
     "html-webpack-plugin": "5.5.0",
