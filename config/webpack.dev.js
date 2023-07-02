@@ -1,5 +1,4 @@
 const commonConfig = require("./webpack.common");
-const path = require("path");
 const { merge } = require("webpack-merge");
 // 区分环境
 // . --mode 用来设置模块内的process.env.NODE_ENV
@@ -17,5 +16,4 @@ module.exports = merge(commonConfig, {
     compress: true, //启动压缩 gzip
     open: true, // 启动之后自动打开浏览器
   },
-  // watch: true, //用于配置持续监听文件变化，持续构建
 });

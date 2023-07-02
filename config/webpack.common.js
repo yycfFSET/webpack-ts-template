@@ -4,21 +4,18 @@ const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const SpeedMeasureWebpackPlugin = require("speed-measure-webpack-plugin");
-const smw = new SpeedMeasureWebpackPlugin();
+const smp = new SpeedMeasureWebpackPlugin();
 const UnusedWebpackPlugin = require("unused-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const HtmlMinimizerPlugin = require("html-minimizer-webpack-plugin");
 const webpackBar = require("webpackbar");
-const { NODE_ENV, ANALYZE, UNUSED, MULTIPLE, UMD_LIBRARY } = process.env;
+const { NODE_ENV, ANALYZE, UNUSED, UMD_LIBRARY } = process.env;
 const isDev = NODE_ENV === "development",
   isAnalyzerMode = ANALYZE === "1",
   isUnusedMode = UNUSED === "1";
-
 const noop = () => {};
-// module.exports = smw.wrap({ //需要包裹一层配置对象
-module.exports = {
+
+module.exports = smp.wrap({
   context: process.cwd(), // 项目执行上下文路径；
   mode: process.env.NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
   entry: {
@@ -77,22 +74,6 @@ module.exports = {
     minimize: isDev ? false : true, //关闭代码压缩;
     concatenateModules: isDev ? false : true, //关闭模块合并;
     usedExports: isDev ? false : true, //关闭 Tree-shaking 功能； // 标记使用到的导出
-    minimizer: [
-      // Webpack5 之后，约定使用 `'...'` 字面量保留默认 `minimizer` 配置
-      "...",
-      !isDev ? new CssMinimizerPlugin() : noop,
-      !isDev
-        ? new HtmlMinimizerPlugin({
-            minimizerOptions: {
-              // 折叠 Boolean 型属性
-              collapseBooleanAttributes: true,
-              // 使用精简 `doctype` 定义
-              useShortDoctype: true,
-              // ...
-            },
-          })
-        : noop,
-    ],
   },
   watchOptions: {
     ignored: /node_modules/, //最小化 watch 监控范围
@@ -302,5 +283,4 @@ module.exports = {
   externals: {
     //用于声明外部资源，Webpack 会直接忽略这部分资源，跳过这些资源的解析、打包操作
   },
-};
-// });
+});
