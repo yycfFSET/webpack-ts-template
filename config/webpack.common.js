@@ -13,9 +13,17 @@ const { NODE_ENV, ANALYZE, UNUSED, UMD_LIBRARY } = process.env;
 const isDev = NODE_ENV === "development",
   isAnalyzerMode = ANALYZE === "1",
   isUnusedMode = UNUSED === "1";
-const noop = () => {};
-
-module.exports = smp.wrap({
+class NoopPlugin {
+  apply(compiler) {
+    compiler.hooks.done.tap(
+      "Noop Plugin",
+      (
+        stats /* stats is passed as an argument when done hook is tapped.  */
+      ) => {}
+    );
+  }
+}
+const webpackConfig = {
   context: process.cwd(), // 项目执行上下文路径；
   mode: process.env.NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
   entry: {
@@ -224,7 +232,7 @@ module.exports = smp.wrap({
           analyzerMode: "server", // 启动展示打包报告的http服务器
           generateStatsFile: true, // 是否生成stats.json文件
         })
-      : noop,
+      : new NoopPlugin(),
     !UMD_LIBRARY
       ? new htmlWebpackPlugin({
           template: path.join(process.cwd(), "src/index.html"),
@@ -235,7 +243,7 @@ module.exports = smp.wrap({
             "src/assets/img/yanyunchangfeng.png"
           ),
         })
-      : noop,
+      : new NoopPlugin(),
     new webpack.DefinePlugin({
       AUTHOR: JSON.stringify("yanyunchangfeng"),
     }),
@@ -252,8 +260,8 @@ module.exports = smp.wrap({
               concurrency: 100,
             },
           })
-        : noop
-      : noop,
+        : new NoopPlugin()
+      : new NoopPlugin(),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$/,
       contextRegExp: /moment$/,
@@ -266,14 +274,16 @@ module.exports = smp.wrap({
           directories: [path.join(process.cwd(), "src")], //用于指定需要分析的文件目录
           root: path.join(process.cwd(), "src"), // 用于显示相对路径替代原有的绝对路径。
         })
-      : noop,
+      : new NoopPlugin(),
     !isDev
       ? new MiniCssExtractPlugin({
           filename: "[name].[contenthash].css",
           chunkFilename: "[name].[contenthash].css",
         })
-      : noop,
-    !isDev ? new webpack.BannerPlugin("Copyright By yanyunchangfeng") : noop,
+      : new NoopPlugin(),
+    !isDev
+      ? new webpack.BannerPlugin("Copyright By yanyunchangfeng")
+      : new NoopPlugin(),
   ],
   infrastructureLogging: {
     // 用于控制日志输出方式，例如可以通过该配置将日志输出到磁盘文件
@@ -283,4 +293,15 @@ module.exports = smp.wrap({
   externals: {
     //用于声明外部资源，Webpack 会直接忽略这部分资源，跳过这些资源的解析、打包操作
   },
-});
+};
+
+const miniCssExtractPluginIndex = webpackConfig.plugins.findIndex(
+  (e) => e.constructor.name === "MiniCssExtractPlugin"
+);
+const miniCssExtractPlugin = webpackConfig.plugins[miniCssExtractPluginIndex];
+const configToExport = smp.wrap(webpackConfig);
+if (miniCssExtractPlugin) {
+  configToExport.plugins[miniCssExtractPluginIndex] = miniCssExtractPlugin;
+}
+
+module.exports = configToExport;
