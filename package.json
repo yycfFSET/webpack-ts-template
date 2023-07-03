@@ -37,8 +37,9 @@
     "build-umd-esm-cjs": "npm run clean && npm run build:umd && npm run build:esm && npm run build:cjs",
     "cypress:open": "cypress open",
     "cypress:run": "concurrently  --kill-others  --success=first \" npm start \" \" wait-on http://localhost:8080 && cypress run \" ",
+    "prettier": "prettier -c --write  **/* --cache",
     "prepare": "husky install",
-    "pre-commit": "cross-env CI=true npm test && npm run cypress:run"
+    "pre-commit": "lint-staged && cross-env CI=true npm test && npm run cypress:run"
   },
   "files": [
     "dist"
@@ -66,7 +67,9 @@
     "html-webpack-plugin": "5.5.0",
     "husky": "8.0.3",
     "jest": "29.3.1",
+    "lint-staged": "^13.2.3",
     "mini-css-extract-plugin": "2.6.0",
+    "prettier": "2.8.8",
     "sass": "1.49.11",
     "sass-loader": "12.6.0",
     "speed-measure-webpack-plugin": "1.5.0",
@@ -87,5 +90,9 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "prettier --write  --ignore-unknown",
+    "*.{json,less,scss,md}": "prettier --write --ignore-unknown"
   }
 }
