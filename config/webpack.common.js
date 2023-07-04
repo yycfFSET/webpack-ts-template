@@ -9,10 +9,11 @@ const UnusedWebpackPlugin = require('unused-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const webpackBar = require('webpackbar');
-const { NODE_ENV, ANALYZE, UNUSED, UMD_LIBRARY } = process.env;
+const { NODE_ENV, ANALYZE, UNUSED, UMD_LIBRARY, SMP } = process.env;
 const isDev = NODE_ENV === 'development',
   isAnalyzerMode = ANALYZE === '1',
-  isUnusedMode = UNUSED === '1';
+  isUnusedMode = UNUSED === '1',
+  isSmpMode = SMP === '1';
 class NoopPlugin {
   apply(compiler) {
     compiler.hooks.done.tap(
@@ -284,11 +285,14 @@ const webpackConfig = {
   }
 };
 
-const miniCssExtractPluginIndex = webpackConfig.plugins.findIndex((e) => e.constructor.name === 'MiniCssExtractPlugin');
-const miniCssExtractPlugin = webpackConfig.plugins[miniCssExtractPluginIndex];
-const configToExport = smp.wrap(webpackConfig);
-if (miniCssExtractPlugin) {
-  configToExport.plugins[miniCssExtractPluginIndex] = miniCssExtractPlugin;
+if (isSmpMode) {
+  const miniCssExtractPluginIndex = webpackConfig.plugins.findIndex(
+    (e) => e.constructor.name === 'MiniCssExtractPlugin'
+  );
+  const miniCssExtractPlugin = webpackConfig.plugins[miniCssExtractPluginIndex];
+  const configToExport = smp.wrap(webpackConfig);
+  if (miniCssExtractPlugin) {
+    configToExport.plugins[miniCssExtractPluginIndex] = miniCssExtractPlugin;
+  }
 }
-
-module.exports = configToExport;
+module.exports = webpackConfig;
