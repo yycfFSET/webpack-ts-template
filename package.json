@@ -4,6 +4,11 @@
   "description": "this is webpack5 typescript template",
   "main": "index.js",
   "types": "index.d.ts",
+  "engines": {
+    "node": "^14.18.0 || ^16.10.0 || >=18.10.0",
+    "yarn": ">=1.22.4 <2",
+    "npm": "Please use yarn instead of NPM to install dependencies"
+  },
   "typesVersions": {
     ">=4.2": {
       "*": [
