@@ -224,7 +224,7 @@ const webpackConfig = {
       : new NoopPlugin(),
     !UMD_LIBRARY
       ? new htmlWebpackPlugin({
-          template: path.join(process.cwd(), 'src/index.html'),
+          template: path.join(process.cwd(), 'public/index.html'),
           filename: 'index.html',
           chunks: ['main'], // 指定包含的代码块
           favicon: path.join(process.cwd(), 'src/assets/img/yanyunchangfeng.png')
