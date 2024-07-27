@@ -1,9 +1,11 @@
 name: Code Analysis
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
+      - master
 
 jobs:
   analysis:
