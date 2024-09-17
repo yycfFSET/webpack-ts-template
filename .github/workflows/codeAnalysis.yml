@@ -1,4 +1,4 @@
-name: Code Analysis Simple
+name: Code Analysis
 
 on:
   workflow_dispatch:
@@ -28,12 +28,12 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Run ESLint
-        run: npx eslint . --format html --output-file ./report/index.html || true
+        run: yarn eslint:report
 
       - name: Upload ESLint report
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./report
+          path: eslint-report
 
       - name: Deploy to GitHub Pages
         id: deployment

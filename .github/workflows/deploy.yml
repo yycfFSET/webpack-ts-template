@@ -1,4 +1,4 @@
-name: deploy
+name: Deploy
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
       - name: Deploy to remote gh-pages branch
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
