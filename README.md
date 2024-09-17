@@ -21,7 +21,7 @@
    yarn start or npm start
 ```
 
-这是基于 webpack5,typescript 的配置模版 可快速搭建 ts 项目 配合[cf-cli](https://github.com/yanyunchangfeng/cf-cli) 使用更佳
+这是基于 webpack5,typescript 的配置模版 可快速搭建 ts 项目 配合[yycf-cli](https://github.com/yanyunchangfeng/yycf-cli) 使用更佳
 
 ## 系列项目
 

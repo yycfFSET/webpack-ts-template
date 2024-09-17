@@ -9,5 +9,5 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  { ignores: ['*', '!*/', 'config/', 'cypress/', 'eslint-report/', 'node_modules/'] }
+  { ignores: ['*', '!*/', 'config/', 'cypress/', 'eslint-report/', 'node_modules/','coverage/'] }
 ];
