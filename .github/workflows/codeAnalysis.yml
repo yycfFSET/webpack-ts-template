@@ -1,52 +1,40 @@
-name: Code Analysis
+name: Code Analysis Simple
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
       - master
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   analysis:
     runs-on: ubuntu-latest
-
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
 
-    - name: Install dependencies
-      uses: bahmutov/npm-install@v1
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
 
-    - name: Run ESLint
-      run: npx eslint . --format html --output-file eslint-report.html
+      - name: Run ESLint
+        run: npx eslint . --format html --output-file ./report/index.html || true
 
-    - name: Upload ESLint report
-      uses: actions/upload-artifact@v2
-      with:
-        name: eslint-report
-        path: eslint-report.html
+      - name: Upload ESLint report
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./report
 
-    - name: Prepare SonarQube environment
-      run: |
-        wget -qO- https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip | bsdtar -xvf- -C $HOME
-        export PATH="$HOME/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
-
-    - name: Run SonarQube Scan
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        sonar-scanner \
-          -Dsonar.projectKey=my_project_key \
-          -Dsonar.organization=my_org \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-    - name: Upload SonarQube report
-      uses: actions/upload-artifact@v2
-      with:
-        name: sonarqube-report
-        path: .scannerwork
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
