@@ -1,22 +1,23 @@
-jest.mock('src/index.scss', () => ({}));
+import { setupHMR } from 'src/hmr';
 
-describe('Module hot replacement', () => {
+jest.mock('src/index.scss', () => ({})); // 模拟 SCSS 文件
+// 模拟 setupHMR 模块
+jest.mock('src/hmr', () => ({
+  setupHMR: jest.fn()
+}));
+
+describe('index.ts module', () => {
   beforeEach(() => {
-    // 模拟 module.hot 的存在性和 accept 方法
-    (global as any).module = {
-      hot: {
-        accept: jest.fn()
-      }
-    };
+    // 每次测试前重置 mock 调用记录
+    jest.clearAllMocks();
+    // 再次加载模块，防止缓存问题
+    jest.isolateModules(() => {
+      import('src/index'); // 加载 index.ts 文件
+    });
   });
 
-  afterEach(() => {
-    // 清理全局对象
-    delete (global as any).module;
-  });
-
-  it('should not throw if module.hot is not available', () => {
-    // 引入待测试的 index.ts，不应该抛出错误
-    expect(() => import('src/index')).not.toThrow();
+  it('should call setupHMR', () => {
+    // 验证 setupHMR 是否被调用
+    expect(setupHMR).toHaveBeenCalled();
   });
 });

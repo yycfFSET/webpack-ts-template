@@ -1,4 +1,4 @@
-import './index.scss';
-if (module.hot) {
-  module.hot.accept();
-}
+import 'src/index.scss';
+import { setupHMR } from 'src/hmr';
+
+setupHMR();
