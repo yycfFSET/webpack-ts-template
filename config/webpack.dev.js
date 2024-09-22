@@ -16,7 +16,7 @@ module.exports = merge(commonConfig, {
     compress: true, //启动压缩 gzip
     open: true // 启动之后自动打开浏览器
     // proxy: {
-    //   "/dev/text2voice": {
+    //   "/dev": {
     //     target: "http://10.16.11.39:8086",
     //     changeOrigin: true,
     //   },
