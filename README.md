@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/yanyunchangfeng/webpack-ts-template/actions">
+    <a href="https://github.com/yanyunchangfeng/webpack-ts-template/actions/workflows/deploy.yml">
       <img src="https://github.com/yanyunchangfeng/webpack-ts-template/workflows/Deploy/badge.svg" alt="Deploy Status">
     </a>
 </p>
