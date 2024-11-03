@@ -25,7 +25,7 @@ class NoopPlugin {
 }
 const webpackConfig = {
   context: process.cwd(), // 项目执行上下文路径；
-  mode: process.env.NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
+  mode: NODE_ENV, //编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
   entry: {
     main: './src/index.ts'
   },
@@ -96,8 +96,7 @@ const webpackConfig = {
     alias: {
       // 别名  注意tsconfig.json˙中的paths也要对应配置
       src: path.resolve('src')
-    },
-    fallback: { events: false }
+    }
   },
   resolveLoader: {
     // 用于配置解析loader时的resolve 配置,默认的配置

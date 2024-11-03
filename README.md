@@ -1,5 +1,7 @@
 [![Test Coverage](https://github.com/yanyunchangfeng/webpack-ts-template/actions/workflows/test.yml/badge.svg)](https://github.com/yanyunchangfeng/webpack-ts-template/actions/workflows/test.yml/?query=branch:main) [![codecov](https://codecov.io/gh/yanyunchangfeng/webpack-ts-template/branch/main/graph/badge.svg)](https://codecov.io/gh/yanyunchangfeng/webpack-ts-template) [![Deploy](https://github.com/yanyunchangfeng/webpack-ts-template/workflows/Deploy/badge.svg)](https://github.com/yanyunchangfeng/webpack-ts-template/actions/workflows/deploy.yml)
 
+[![npm latest version](https://img.shields.io/npm/v/webpack-ts-template/latest.svg)](https://www.npmjs.com/package/webpack-ts-template)
+
 <p align="center">
     <img width="300" src="src/assets/img/yanyunchangfeng.png">
 </p>
@@ -11,8 +13,8 @@
 ## 用法
 
 ```
-   yarn
-   yarn start or npm start
+   pnpm i
+   pnpm start
 ```
 
 这是基于 webpack5,typescript 的配置模版 可快速搭建 ts 项目 配合[yycf-cli](https://github.com/yanyunchangfeng/yycf-cli) 使用更佳
@@ -32,20 +34,20 @@
 ## 单元测试
 
 ```
-   yarn test or npm test
+   pnpm test
 ```
 
 ## 端到端测试
 
 ```
-   yarn cypress:open or  npm run cypress:open
-   yarn cypress:run or  npm run cypress:run
+   pnpm cypress:open
+   pnpm cypress:run
 ```
 
 ## 打包分析
 
 ```
-   yarn build-analyzer or npm run build-analyzer
+   pnpm build-analyzer
 ```
 
 ## 社交主页
