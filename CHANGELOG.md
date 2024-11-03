@@ -1,3 +1,9 @@
+# [1.1.0-rc.1](https://github.com/yanyunchangfeng/webpack-ts-template/compare/v1.0.0...v1.1.0-rc.1) (2024-11-03)
+
+### Features
+
+- update readme & config ([d240a7e](https://github.com/yanyunchangfeng/webpack-ts-template/commit/d240a7ebd28e1542fef76fc3991d587987b763bc))
+
 # 1.0.0 (2024-11-03)
 
 ### Features
