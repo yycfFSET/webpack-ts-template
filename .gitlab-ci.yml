@@ -10,9 +10,9 @@ unit-integration-e2e-test:
   tags:
     - coverage
   before_script:
-    - yarn install # 安装依赖
+    - pnpm install # 安装依赖
   script:
-    - yarn ${TEST_SCRIPT} # 运行测试脚本
+    - pnpm ${TEST_SCRIPT} # 运行测试脚本
   retry: 2 # 重试次数
   coverage: /Statements\s+:\s+([\d\.]+)%\s+\(\s*\d+\/\d+\s*\)/ # 根据你的覆盖率输出调整正则表达式
   artifacts:
