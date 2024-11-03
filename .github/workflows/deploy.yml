@@ -44,7 +44,7 @@ jobs:
       - name: Build project
         run: pnpm build
 
-      - name: Deploy to remote gh-pages branch
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
