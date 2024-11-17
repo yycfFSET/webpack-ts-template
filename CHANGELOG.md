@@ -1,3 +1,9 @@
+# [1.2.0-rc.1](https://github.com/yanyunchangfeng/webpack-ts-template/compare/v1.1.0...v1.2.0-rc.1) (2024-11-17)
+
+### Features
+
+- add shared & utils ([c22379f](https://github.com/yanyunchangfeng/webpack-ts-template/commit/c22379f9df89bc93a30c612ea333b2aa2277cc9e))
+
 # [1.1.0](https://github.com/yanyunchangfeng/webpack-ts-template/compare/v1.0.0...v1.1.0) (2024-11-03)
 
 ### Features
